@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Order Service - Ordem de Serviço</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px; /* Largura máxima para o formulário */
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .header-info {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        .header-info span {
+            margin-left: 20px;
+        }
+        .section-title {
+            background-color: #e2e2e2;
+            padding: 8px 15px;
+            margin: 20px 0 15px 0;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            gap: 15px; /* Espaço entre os itens da linha */
+        }
+        .form-group {
+            flex: 1; /* Permite que os grupos ocupem o espaço disponível */
+            min-width: 150px; /* Largura mínima para evitar que fiquem muito pequenos */
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Inclui padding e borda na largura total */
+        }
+        textarea {
+            resize: vertical; /* Permite redimensionar verticalmente */
+            min-height: 80px;
+        }
+        .parts-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .parts-table th, .parts-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .parts-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .parts-table input[type="number"],
+        .parts-table input[type="text"] {
+            width: calc(100% - 16px); /* Para ajustar dentro da célula */
+            border: none;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            text-align: inherit;
+        }
+        .parts-table input[type="number"] {
+            text-align: right; /* Alinhar números à direita */
+        }
+        .total-fields {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .total-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .total-group label {
+            font-weight: bold;
+            color: #333;
+        }
+        .total-group input[type="number"] {
+            width: 120px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: right;
+            font-weight: bold;
+            background-color: #eaf7ed; /* Cor de fundo para campos calculados */
+        }
+        .total-group #totalGeral {
+            background-color: #d4edda; /* Cor mais destacada para o total geral */
+            font-size: 1.1em;
+            color: #006400;
+        }
+        button {
+            display: block;
+            width: 200px;
+            padding: 12px;
+            margin: 30px auto 10px auto;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .response-message {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .bottom-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: #777;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        /* Ajustes para telas menores */
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .form-group {
+                min-width: unset;
+            }
+            .total-fields {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Work Order Service <br><small>Authorized Service Car</small></h1>
+
+        <div class="header-info">
+            <span>Nº OS: <span id="osNumberDisplay">Gerado Automaticamente</span></span>
+            <span>Data Hora: <span id="currentDateTime"></span></span>
+        </div>
+
+        <form id="osForm">
+            <div class="section-title">INFORMAÇÕES CLIENTE</div>
+            <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="Nome" required>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" name="Cpf" placeholder="Ex: 123.456.789-00">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="endereco">Endereço:</label>
+                    <input type="text" id="endereco" name="Endereco">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="telefone">Tel.:</label>
+                    <input type="text" id="telefone" name="Telefone" placeholder="Ex: (XX) XXXX-XXXX">
+                </div>
+            </div>
+
+            <div class="section-title">INFORMAÇÕES VEÍCULO</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="veiculo">Veículo:</label>
+                    <input type="text" id="veiculo" name="Veiculo">
+                </div>
+                <div class="form-group">
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" id="modelo" name="Modelo">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cor">Cor:</label>
+                    <input type="text" id="cor" name="Cor">
+                </div>
+                <div class="form-group">
+                    <label for="matricula">Matrícula:</label>
+                    <input type="text" id="matricula" name="Matricula" placeholder="Placa do veículo">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="proprietario">Proprietário:</label>
+                    <input type="text" id="proprietario" name="Proprietario" placeholder="Seu Próprio, Terceiros.">
+                </div>
+            </div>
+
+            <div class="section-title">DETALHES DO SERVIÇO / PEÇAS</div>
+            <div class="form-group">
+                <label for="servico">Descreva o serviço ou problema relatado...</label>
+                <textarea id="servico" name="Servico"></textarea>
+            </div>
+
+            <table class="parts-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">QUANT.</th>
+                        <th style="width: 40%;">DESCRIÇÃO DE PEÇAS</th>
+                        <th style="width: 20%;">VALOR UNIT.</th>
+                        <th style="width: 20%;">VALOR TOTAL DA PEÇA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="number" name="QuantPeca0" class="part-quantity" value="0"></td>
+                        <td><input type="text" name="NomePeca0" class="part-description"></td>
+                        <td><input type="number" name="ValorUnitPeca0" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" name="ValorTotalPeca0" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="QuantPeca1" class="part-quantity" value="0"></td>
+                        <td><input type="text" name="NomePeca1" class="part-description"></td>
+                        <td><input type="number" name="ValorUnitPeca1" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" name="ValorTotalPeca1" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="QuantPeca2" class="part-quantity" value="0"></td>
+                        <td><input type="text" name="NomePeca2" class="part-description"></td>
+                        <td><input type="number" name="ValorUnitPeca2" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" name="ValorTotalPeca2" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="QuantPeca3" class="part-quantity" value="0"></td>
+                        <td><input type="text" name="NomePeca3" class="part-description"></td>
+                        <td><input type="number" name="ValorUnitPeca3" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" name="ValorTotalPeca3" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="QuantPeca4" class="part-quantity" value="0"></td>
+                        <td><input type="text" name="NomePeca4" class="part-description"></td>
+                        <td><input type="number" name="ValorUnitPeca4" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" name="ValorTotalPeca4" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="QuantPeca5" class="part-quantity" value="0"></td>
+                        <td><input type="text" name="NomePeca5" class="part-description"></td>
+                        <td><input type="number" name="ValorUnitPeca5" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" name="ValorTotalPeca5" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="QuantPeca6" class="part-quantity" value="0"></td>
+                        <td><input type="text" name="NomePeca6" class="part-description"></td>
+                        <td><input type="number" name="ValorUnitPeca6" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" name="ValorTotalPeca6" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="QuantPeca7" class="part-quantity" value="0"></td>
+                        <td><input type="text" name="NomePeca7" class="part-description"></td>
+                        <td><input type="number" name="ValorUnitPeca7" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" name="ValorTotalPeca7" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="QuantPeca8" class="part-quantity" value="0"></td>
+                        <td><input type="text" name="NomePeca8" class="part-description"></td>
+                        <td><input type="number" name="ValorUnitPeca8" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" name="ValorTotalPeca8" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="QuantPeca9" class="part-quantity" value="0"></td>
+                        <td><input type="text" name="NomePeca9" class="part-description"></td>
+                        <td><input type="number" name="ValorUnitPeca9" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" name="ValorTotalPeca9" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="total-fields">
+                <div class="total-group">
+                    <label for="maodeobra">Valor mão obra.:</label>
+                    <input type="number" id="maodeobra" name="Maodeobra" step="0.01" value="0.00">
+                </div>
+                <div class="total-group">
+                    <label for="ivapercentual">IVA %:</label>
+                    <input type="number" id="ivapercentual" name="Ivapercentual" step="0.01" value="0.00">
+                </div>
+                <div class="total-group">
+                    <label for="valortotalpeca">Total Peças.:</label>
+                    <input type="number" id="valortotalpeca" name="Valortotalpeca" step="0.01" value="0.00" readonly>
+                </div>
+                <div class="total-group">
+                    <label for="totalGeral">Total geral.:</label>
+                    <input type="number" id="totalGeral" name="Totalgeral" step="0.01" value="0.00" readonly>
+                </div>
+            </div>
+
+            <button type="submit">Enviar Ordem de Serviço</button>
+        </form>
+
+        <div id="responseMessage" class="response-message"></div>
+
+        <div class="bottom-info">
+            <span id="formCreationDate"></span>
+            <span>Novo Cliente: </span>
+        </div>
+    </div>
+
+    <script>
+        // ** COLOQUE A URL DO SEU APPS SCRIPT AQUI! **
+        // Esta URL DEVE SER A DA SUA IMPLANTAÇÃO ATUAL DO GOOGLE APPS SCRIPT.
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycy1PK6lcTW1IFgacxyX-b3G5qAYHk2QXgPu1RLo1GvoJ3P2v1yoUanoavf26a-Rtd/exec'; // EXEMPLO: SUBSTITUA PELA SUA URL REAL
+
+        const osForm = document.getElementById('osForm');
+        const responseMessageDiv = document.getElementById('responseMessage');
+
+        const partQuantityInputs = document.querySelectorAll('.part-quantity');
+        const partUnitValueInputs = document.querySelectorAll('.part-unit-value');
+        const partCalculatedTotalInputs = document.querySelectorAll('.part-calculated-total');
+
+        const maodeobraInput = document.getElementById('maodeobra');
+        const ivapercentualInput = document.getElementById('ivapercentual');
+        const valortotalpecaInput = document.getElementById('valortotalpeca');
+        const totalGeralInput = document.getElementById('totalGeral');
+        const osNumberDisplay = document.getElementById('osNumberDisplay');
+        const currentDateTimeDisplay = document.getElementById('currentDateTime');
+        const formCreationDateDisplay = document.getElementById('formCreationDate');
+
+        // --- Funções de Cálculo ---
+        function calculateIndividualPartTotal(index) {
+            const quantity = parseFloat(partQuantityInputs[index].value) || 0;
+            const unitValue = parseFloat(partUnitValueInputs[index].value) || 0;
+            const total = quantity * unitValue;
+            partCalculatedTotalInputs[index].value = total.toFixed(2);
+            calculateTotalPartsValue(); // Recalcula o total de peças sempre que uma peça individual muda
+        }
+
+        function calculateTotalPartsValue() {
+            let total = 0;
+            partCalculatedTotalInputs.forEach(input => {
+                total += parseFloat(input.value) || 0;
+            });
+            valortotalpecaInput.value = total.toFixed(2);
+            calculateTotalGeneral(); // Recalcula o total geral
+        }
+
+        function calculateTotalGeneral() {
+            const maodeobra = parseFloat(maodeobraInput.value) || 0;
+            const valortotalpeca = parseFloat(valortotalpecaInput.value) || 0;
+            const ivapercentual = parseFloat(ivapercentualInput.value) || 0;
+
+            // O IVA é aplicado SOMENTE sobre o valor total das peças.
+            let subtotalPecasComIVA = valortotalpeca * (1 + (ivapercentual / 100));
+            
+            // O Total Geral é a soma da Mão de Obra (pura) + Total das Peças (com IVA)
+            let totalGeral = maodeobra + subtotalPecasComIVA;
+
+            totalGeralInput.value = totalGeral.toFixed(2);
+        }
+
+        // --- Event Listeners para Cálculos ---
+        for (let i = 0; i < partQuantityInputs.length; i++) {
+            partQuantityInputs[i].addEventListener('input', () => calculateIndividualPartTotal(i));
+            partUnitValueInputs[i].addEventListener('input', () => calculateIndividualPartTotal(i));
+        }
+
+        maodeobraInput.addEventListener('input', calculateTotalGeneral);
+        ivapercentualInput.addEventListener('input', calculateTotalGeneral);
+
+        // --- Inicialização e Informações de Data/Hora ---
+        function initializeForm() {
+            const now = new Date();
+            const formattedDate = now.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            const formattedTime = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+            currentDateTimeDisplay.textContent = `${formattedDate} ${formattedTime}`;
+            formCreationDateDisplay.textContent = `Data hora: ${formattedDate} ${formattedTime}`;
+
+            // Reseta todos os campos de valor e peças
+            osForm.reset();
+            valortotalpecaInput.value = "0.00";
+            totalGeralInput.value = "0.00";
+            
+            partQuantityInputs.forEach(input => input.value = "0");
+            partUnitValueInputs.forEach(input => input.value = "0.00");
+            partCalculatedTotalInputs.forEach(input => input.value = "0.00");
+            
+            // Assegurar que o display da OS volte a "Gerado Automaticamente" após o reset
+            osNumberDisplay.textContent = 'Gerado Automaticamente'; 
+        }
+
+        // --- Envio do Formulário ---
+        osForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Impede o envio padrão do formulário
+
+            responseMessageDiv.textContent = 'Enviando...';
+            responseMessageDiv.style.color = '#007bff'; // Cor de carregamento
+
+            const formData = new FormData(osForm);
+            const data = {}; // Objeto para armazenar os dados do formulário
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            // Garante que os campos de valor numérico sejam enviados como números
+            data.Maodeobra = parseFloat(data.Maodeobra) || 0;
+            data.Ivapercentual = parseFloat(data.Ivapercentual) || 0;
+            data.Valortotalpeca = parseFloat(data.Valortotalpeca) || 0;
+            data.Totalgeral = parseFloat(data.Totalgeral) || 0;
+
+            // Envia os dados para o Google Apps Script
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                // NUNCA use 'mode: no-cors' com Apps Script, pois impede a leitura da resposta
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json' // Informa ao Apps Script que o corpo é JSON
+                },
+                body: JSON.stringify(data) // Converte o objeto de dados em uma string JSON
+            })
+            .then(response => {
+                // Verifica se a resposta HTTP foi bem-sucedida
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                // Retorna o JSON da resposta do Apps Script
+                return response.json();
+            })
+            .then(result => {
+                // Processa o resultado retornado pelo Apps Script
+                if (result.result === "success") {
+                    responseMessageDiv.textContent = 'Ordem de serviço registrada com sucesso!';
+                    responseMessageDiv.style.color = 'green';
+                    initializeForm(); // Reseta o formulário e a exibição da OS
+
+                    // ATUALIZA O NÚMERO DA OS COM O VALOR RETORNADO DO APPS SCRIPT
+                    osNumberDisplay.textContent = result.osNumber; 
+                } else {
+                    responseMessageDiv.textContent = `Erro: ${result.message}`;
+                    responseMessageDiv.style.color = 'red';
+                    console.error("Erro do Apps Script:", result.message);
+                }
+            })
+            .catch(error => {
+                // Captura e exibe erros de rede ou de processamento do fetch
+                console.error('Erro ao registrar a ordem:', error);
+                responseMessageDiv.textContent = 'Erro ao registrar a ordem de serviço. Verifique o console para detalhes.';
+                responseMessageDiv.style.color = 'red';
+            });
+        });
+
+        // Inicializa o formulário e os cálculos ao carregar a página
+        document.addEventListener('DOMContentLoaded', initializeForm);
+        document.addEventListener('DOMContentLoaded', calculateTotalPartsValue); // Garante que os totais sejam calculados na carga inicial
+    </script>
+</body>
+</html>
