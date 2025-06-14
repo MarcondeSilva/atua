@@ -227,8 +227,7 @@
                 </div>
                 <div class="form-group">
                     <label for="matricula">Matrícula:</label>
-                    <input type="text" id="matricula" name="Matricula" placeholder="Placa do veículo">
-                </div>
+                    <input type="text" id="matricula" name="Placa" placeholder="Placa do veículo"> </div>
             </div>
 
             <div class="form-row">
@@ -241,8 +240,7 @@
             <div class="section-title">DETALHES DO SERVIÇO / PEÇAS</div>
             <div class="form-group">
                 <label for="servico">Descreva o serviço ou problema relatado...</label>
-                <textarea id="servico" name="Servico"></textarea>
-            </div>
+                <textarea id="servico" name="DescricaoServico"></textarea> </div>
 
             <table class="parts-table">
                 <thead>
@@ -255,64 +253,64 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="number" name="QuantPeca0" class="part-quantity" value="0"></td>
-                        <td><input type="text" name="NomePeca0" class="part-description"></td>
-                        <td><input type="number" name="ValorUnitPeca0" class="part-unit-value" step="0.01" value="0.00"></td>
-                        <td><input type="number" name="ValorTotalPeca0" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                        <td><input type="number" id="quantPeca0" name="QuantPeca0" class="part-quantity" value="0"></td>
+                        <td><input type="text" id="nomePeca0" name="NomePeca0" class="part-description"></td>
+                        <td><input type="number" id="valorUnitPeca0" name="ValorUnitPeca0" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" id="valorTotalPeca0" name="ValorTotalPeca0" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
                     </tr>
                     <tr>
-                        <td><input type="number" name="QuantPeca1" class="part-quantity" value="0"></td>
-                        <td><input type="text" name="NomePeca1" class="part-description"></td>
-                        <td><input type="number" name="ValorUnitPeca1" class="part-unit-value" step="0.01" value="0.00"></td>
-                        <td><input type="number" name="ValorTotalPeca1" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                        <td><input type="number" id="quantPeca1" name="QuantPeca1" class="part-quantity" value="0"></td>
+                        <td><input type="text" id="nomePeca1" name="NomePeca1" class="part-description"></td>
+                        <td><input type="number" id="valorUnitPeca1" name="ValorUnitPeca1" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" id="valorTotalPeca1" name="ValorTotalPeca1" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
                     </tr>
                     <tr>
-                        <td><input type="number" name="QuantPeca2" class="part-quantity" value="0"></td>
-                        <td><input type="text" name="NomePeca2" class="part-description"></td>
-                        <td><input type="number" name="ValorUnitPeca2" class="part-unit-value" step="0.01" value="0.00"></td>
-                        <td><input type="number" name="ValorTotalPeca2" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                        <td><input type="number" id="quantPeca2" name="QuantPeca2" class="part-quantity" value="0"></td>
+                        <td><input type="text" id="nomePeca2" name="NomePeca2" class="part-description"></td>
+                        <td><input type="number" id="valorUnitPeca2" name="ValorUnitPeca2" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" id="valorTotalPeca2" name="ValorTotalPeca2" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
                     </tr>
                     <tr>
-                        <td><input type="number" name="QuantPeca3" class="part-quantity" value="0"></td>
-                        <td><input type="text" name="NomePeca3" class="part-description"></td>
-                        <td><input type="number" name="ValorUnitPeca3" class="part-unit-value" step="0.01" value="0.00"></td>
-                        <td><input type="number" name="ValorTotalPeca3" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                        <td><input type="number" id="quantPeca3" name="QuantPeca3" class="part-quantity" value="0"></td>
+                        <td><input type="text" id="nomePeca3" name="NomePeca3" class="part-description"></td>
+                        <td><input type="number" id="valorUnitPeca3" name="ValorUnitPeca3" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" id="valorTotalPeca3" name="ValorTotalPeca3" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
                     </tr>
                     <tr>
-                        <td><input type="number" name="QuantPeca4" class="part-quantity" value="0"></td>
-                        <td><input type="text" name="NomePeca4" class="part-description"></td>
-                        <td><input type="number" name="ValorUnitPeca4" class="part-unit-value" step="0.01" value="0.00"></td>
-                        <td><input type="number" name="ValorTotalPeca4" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                        <td><input type="number" id="quantPeca4" name="QuantPeca4" class="part-quantity" value="0"></td>
+                        <td><input type="text" id="nomePeca4" name="NomePeca4" class="part-description"></td>
+                        <td><input type="number" id="valorUnitPeca4" name="ValorUnitPeca4" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" id="valorTotalPeca4" name="ValorTotalPeca4" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
                     </tr>
                     <tr>
-                        <td><input type="number" name="QuantPeca5" class="part-quantity" value="0"></td>
-                        <td><input type="text" name="NomePeca5" class="part-description"></td>
-                        <td><input type="number" name="ValorUnitPeca5" class="part-unit-value" step="0.01" value="0.00"></td>
-                        <td><input type="number" name="ValorTotalPeca5" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                        <td><input type="number" id="quantPeca5" name="QuantPeca5" class="part-quantity" value="0"></td>
+                        <td><input type="text" id="nomePeca5" name="NomePeca5" class="part-description"></td>
+                        <td><input type="number" id="valorUnitPeca5" name="ValorUnitPeca5" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" id="valorTotalPeca5" name="ValorTotalPeca5" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
                     </tr>
                     <tr>
-                        <td><input type="number" name="QuantPeca6" class="part-quantity" value="0"></td>
-                        <td><input type="text" name="NomePeca6" class="part-description"></td>
-                        <td><input type="number" name="ValorUnitPeca6" class="part-unit-value" step="0.01" value="0.00"></td>
-                        <td><input type="number" name="ValorTotalPeca6" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                        <td><input type="number" id="quantPeca6" name="QuantPeca6" class="part-quantity" value="0"></td>
+                        <td><input type="text" id="nomePeca6" name="NomePeca6" class="part-description"></td>
+                        <td><input type="number" id="valorUnitPeca6" name="ValorUnitPeca6" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" id="valorTotalPeca6" name="ValorTotalPeca6" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
                     </tr>
                     <tr>
-                        <td><input type="number" name="QuantPeca7" class="part-quantity" value="0"></td>
-                        <td><input type="text" name="NomePeca7" class="part-description"></td>
-                        <td><input type="number" name="ValorUnitPeca7" class="part-unit-value" step="0.01" value="0.00"></td>
-                        <td><input type="number" name="ValorTotalPeca7" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                        <td><input type="number" id="quantPeca7" name="QuantPeca7" class="part-quantity" value="0"></td>
+                        <td><input type="text" id="nomePeca7" name="NomePeca7" class="part-description"></td>
+                        <td><input type="number" id="valorUnitPeca7" name="ValorUnitPeca7" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" id="valorTotalPeca7" name="ValorTotalPeca7" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
                     </tr>
                     <tr>
-                        <td><input type="number" name="QuantPeca8" class="part-quantity" value="0"></td>
-                        <td><input type="text" name="NomePeca8" class="part-description"></td>
-                        <td><input type="number" name="ValorUnitPeca8" class="part-unit-value" step="0.01" value="0.00"></td>
-                        <td><input type="number" name="ValorTotalPeca8" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                        <td><input type="number" id="quantPeca8" name="QuantPeca8" class="part-quantity" value="0"></td>
+                        <td><input type="text" id="nomePeca8" name="NomePeca8" class="part-description"></td>
+                        <td><input type="number" id="valorUnitPeca8" name="ValorUnitPeca8" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" id="valorTotalPeca8" name="ValorTotalPeca8" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
                     </tr>
                     <tr>
-                        <td><input type="number" name="QuantPeca9" class="part-quantity" value="0"></td>
-                        <td><input type="text" name="NomePeca9" class="part-description"></td>
-                        <td><input type="number" name="ValorUnitPeca9" class="part-unit-value" step="0.01" value="0.00"></td>
-                        <td><input type="number" name="ValorTotalPeca9" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
+                        <td><input type="number" id="quantPeca9" name="QuantPeca9" class="part-quantity" value="0"></td>
+                        <td><input type="text" id="nomePeca9" name="NomePeca9" class="part-description"></td>
+                        <td><input type="number" id="valorUnitPeca9" name="ValorUnitPeca9" class="part-unit-value" step="0.01" value="0.00"></td>
+                        <td><input type="number" id="valorTotalPeca9" name="ValorTotalPeca9" class="part-calculated-total" step="0.01" value="0.00" readonly></td>
                     </tr>
                 </tbody>
             </table>
@@ -350,12 +348,14 @@
     <script>
         // ** COLOQUE A URL DO SEU APPS SCRIPT AQUI! **
         // Esta URL DEVE SER A DA SUA IMPLANTAÇÃO ATUAL DO GOOGLE APPS SCRIPT.
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycy1PK6lcTW1IFgacxyX-b3G5qAYHk2QXgPu1RLo1GvoJ3P2v1yoUanoavf26a-Rtd/exec'; // EXEMPLO: SUBSTITUA PELA SUA URL REAL
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxTrdW5yIiDmuWzWYNlsUII2e7QVR619CjgOPwMqwvIrIdalfB9w6ZzytSbCC5a9E_6/exec'; // EXEMPLO: SUBSTITUA PELA SUA URL REAL
 
         const osForm = document.getElementById('osForm');
         const responseMessageDiv = document.getElementById('responseMessage');
 
+        // Seletores atualizados para obter todos os inputs de quantidade, descrição e valor unitário
         const partQuantityInputs = document.querySelectorAll('.part-quantity');
+        const partDescriptionInputs = document.querySelectorAll('.part-description'); // Novo seletor
         const partUnitValueInputs = document.querySelectorAll('.part-unit-value');
         const partCalculatedTotalInputs = document.querySelectorAll('.part-calculated-total');
 
@@ -424,6 +424,8 @@
             
             partQuantityInputs.forEach(input => input.value = "0");
             partUnitValueInputs.forEach(input => input.value = "0.00");
+            // Limpa as descrições das peças
+            partDescriptionInputs.forEach(input => input.value = ""); 
             partCalculatedTotalInputs.forEach(input => input.value = "0.00");
             
             // Assegurar que o display da OS volte a "Gerado Automaticamente" após o reset
@@ -437,22 +439,46 @@
             responseMessageDiv.textContent = 'Enviando...';
             responseMessageDiv.style.color = '#007bff'; // Cor de carregamento
 
-            const formData = new FormData(osForm);
             const data = {}; // Objeto para armazenar os dados do formulário
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
+
+            // Coleta dados dos campos principais
+            data.Nome = document.getElementById('nome').value;
+            data.Cpf = document.getElementById('cpf').value;
+            data.Endereco = document.getElementById('endereco').value;
+            data.Telefone = document.getElementById('telefone').value;
+            data.Veiculo = document.getElementById('veiculo').value;
+            data.Modelo = document.getElementById('modelo').value;
+            data.Cor = document.getElementById('cor').value;
+            data.Placa = document.getElementById('matricula').value; // Mapeia 'matricula' para 'Placa'
+            data.Proprietario = document.getElementById('proprietario').value;
+            data.DescricaoServico = document.getElementById('servico').value; // Mapeia 'servico' para 'DescricaoServico'
+
+            // Coleta dados das peças individualmente
+            // Itera sobre o número máximo de peças (0 a 9)
+            for (let i = 0; i <= 9; i++) { // Percorre até o índice 9 para cobrir QuantPeca0 a QuantPeca9
+                const quantInput = document.getElementById(`quantPeca${i}`);
+                const nomeInput = document.getElementById(`nomePeca${i}`);
+                const valorUnitInput = document.getElementById(`valorUnitPeca${i}`);
+
+                // Inclui no objeto 'data' APENAS se o campo de quantidade existir
+                if (quantInput) {
+                    data[`QuantPeca${i}`] = parseFloat(quantInput.value) || 0;
+                    data[`NomePeca${i}`] = nomeInput ? nomeInput.value : "";
+                    data[`ValorUnitPeca${i}`] = parseFloat(valorUnitInput ? valorUnitInput.value : 0) || 0;
+                }
             }
 
-            // Garante que os campos de valor numérico sejam enviados como números
-            data.Maodeobra = parseFloat(data.Maodeobra) || 0;
-            data.Ivapercentual = parseFloat(data.Ivapercentual) || 0;
-            data.Valortotalpeca = parseFloat(data.Valortotalpeca) || 0;
-            data.Totalgeral = parseFloat(data.Totalgeral) || 0;
+            // Coleta dados dos campos de totais
+            data.ValorMaoObra = parseFloat(maodeobraInput.value) || 0;
+            data.Iva = parseFloat(ivapercentualInput.value) || 0; // Nome ajustado para "Iva"
+            data.TotalPecas = parseFloat(valortotalpecaInput.value) || 0; // Nome ajustado para "TotalPecas"
+            data.TotalGeral = parseFloat(totalGeralInput.value) || 0; // Nome ajustado para "TotalGeral"
+
+            console.log("Dados enviados (HTML):", data); // Para depuração no console do navegador
 
             // Envia os dados para o Google Apps Script
             fetch(SCRIPT_URL, {
                 method: 'POST',
-                // NUNCA use 'mode: no-cors' com Apps Script, pois impede a leitura da resposta
                 cache: 'no-cache',
                 headers: {
                     'Content-Type': 'application/json' // Informa ao Apps Script que o corpo é JSON
@@ -462,24 +488,36 @@
             .then(response => {
                 // Verifica se a resposta HTTP foi bem-sucedida
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    // Tenta ler o erro do servidor se a resposta não for OK
+                    return response.json().then(errorData => {
+                        throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.error || 'Erro desconhecido.'}`);
+                    }).catch(() => {
+                        // Se não conseguir ler JSON, lança erro genérico
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    });
                 }
                 // Retorna o JSON da resposta do Apps Script
                 return response.json();
             })
             .then(result => {
                 // Processa o resultado retornado pelo Apps Script
-                if (result.result === "success") {
-                    responseMessageDiv.textContent = 'Ordem de serviço registrada com sucesso!';
+                if (result.success) { // Apps Script agora retorna { success: true, message: "..." }
+                    responseMessageDiv.textContent = result.message;
                     responseMessageDiv.style.color = 'green';
-                    initializeForm(); // Reseta o formulário e a exibição da OS
-
-                    // ATUALIZA O NÚMERO DA OS COM O VALOR RETORNADO DO APPS SCRIPT
-                    osNumberDisplay.textContent = result.osNumber; 
+                    // initializeForm(); // Não reseta o formulário aqui para permitir ver a OS gerada
+                    
+                    // Se o Apps Script retornar um número de OS, exiba-o
+                    if (result.osNumber) {
+                        osNumberDisplay.textContent = result.osNumber;
+                    } else {
+                        osNumberDisplay.textContent = 'Sucesso (Nº OS a ser gerado)';
+                    }
+                    // Opcional: Reseta o formulário após um pequeno atraso para o usuário ver o sucesso
+                    setTimeout(initializeForm, 3000); // Reseta após 3 segundos
                 } else {
-                    responseMessageDiv.textContent = `Erro: ${result.message}`;
+                    responseMessageDiv.textContent = `Erro: ${result.error}`; // Apps Script agora retorna { success: false, error: "..." }
                     responseMessageDiv.style.color = 'red';
-                    console.error("Erro do Apps Script:", result.message);
+                    console.error("Erro do Apps Script:", result.error);
                 }
             })
             .catch(error => {
